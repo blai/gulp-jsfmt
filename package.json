@@ -1,0 +1,28 @@
+{
+  "name": "gulp-jsfmt",
+  "version": "0.0.1",
+  "description": "`gulp` task for `jsfmt`",
+  "keywords": [
+    "gulpplugin",
+    "jsfmt",
+    "esformatter"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "brian.lai.ym@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "jsfmt": "^0.2.0",
+    "through2": "^0.4.1",
+    "gulp-util": "^2.2.14",
+    "sugar": "^1.4.1",
+    "bufferstreams": "0.0.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-mocha": "^0.4.1",
+    "chai": "^1.9.1"
+  }
+}
