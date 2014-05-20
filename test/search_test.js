@@ -7,10 +7,10 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var jsfmt = require('../');
 
-describe('rewrite', function () {
-  it('should let files pass through when no rewrite pattern is issued', function (done) {
-    var stream = jsfmt.rewrite();
-    var s = 'module.exports = function () {\n\t_.reduce(aa, bb, cc);\n};';
+describe('search', function () {
+  it('should let files pass through when no search pattern is issued', function (done) {
+    var stream = jsfmt.search();
+    var s = 'module.exports = function () {\n\taa.reduce(bb, cc);\n};';
     var n = 0;
     stream.pipe(through.obj(function (file, _, cb) {
       file.contents.toString().should.eql(s);
@@ -30,7 +30,7 @@ describe('rewrite', function () {
   });
 
   it('should let null files pass through', function (done) {
-    var stream = jsfmt.rewrite('_.reduce(a, b, c) -> a.reduce(b, c)');
+    var stream = jsfmt.search('_.reduce(a, b, c) -> a.reduce(b, c)');
     var n = 0;
     stream.pipe(through.obj(function (file, _, cb) {
       should.not.exist(file.contents);
@@ -50,11 +50,11 @@ describe('rewrite', function () {
   });
 
   it('should work in buffer mode', function (done) {
-    var stream = jsfmt.rewrite('_.reduce(a, b, c) -> a.reduce(b, c)');
+    var stream = jsfmt.search('_.reduce(a, b, c)');
     var s = 'module.exports = function () {\n\t_.reduce(aa, bb, cc);\n};';
     var n = 0;
     stream.pipe(through.obj(function (file, _, cb) {
-      file.contents.toString().should.eql('module.exports = function () {\n\taa.reduce(bb, cc);\n};');
+      file.matches.length.should.eql(1);
       this.push(file);
       n++;
       cb();
@@ -71,11 +71,11 @@ describe('rewrite', function () {
   });
 
   it('should work in stream mode', function (done) {
-    var stream = jsfmt.rewrite('_.reduce(a, b, c) -> a.reduce(b, c)');
+    var stream = jsfmt.search('_.reduce(a, b, c)');
     stream.once('data', function (file) {
       file.isStream().should.eql(true);
       file.contents.pipe(es.wait(function (err, data) {
-        data.should.eql('module.exports = function () {\n\taa.reduce(bb, cc);\n};');
+        file.matches.length.should.eql(1);
         done();
       }))
     });
