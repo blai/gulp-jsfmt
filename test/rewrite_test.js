@@ -75,7 +75,7 @@ describe('rewrite', function () {
     stream.once('data', function (file) {
       file.isStream().should.eql(true);
       file.contents.pipe(es.wait(function (err, data) {
-        data.should.eql('module.exports = function () {\n\taa.reduce(bb, cc);\n};');
+        data.toString().should.eql('module.exports = function () {\n\taa.reduce(bb, cc);\n};');
         done();
       }))
     });
