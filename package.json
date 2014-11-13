@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsfmt",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "`gulp` task for `jsfmt`",
   "keywords": [
     "gulpplugin",
