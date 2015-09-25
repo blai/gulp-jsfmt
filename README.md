@@ -39,6 +39,31 @@ gulp.task('default', function() {
 });
 ```
 
+### format()
+Formats js (not JSON) files
+```js
+var gulp = require('gulp');
+var jsfmt  = require('gulp-jsfmt');
+
+gulp.task('default', function() {
+  gulp.src('./**/*.js')
+    .pipe(jsfmt.format())
+    .pipe(gulp.dest('./dist'));
+});
+```
+### formatJSON()
+Formats json (not JS) files
+```js
+var gulp = require('gulp');
+var jsfmt  = require('gulp-jsfmt');
+
+gulp.task('default', function() {
+  gulp.src('./**/*.json')
+    .pipe(jsfmt.formatJSON())
+    .pipe(gulp.dest('./dist'));
+});
+```
+
 #### `matches`
 Each patterns specified will be used to call `jsfmt.search`, and the results are passed back in the property named `matches` in each of the `Vinyl` object in the stream.
 
